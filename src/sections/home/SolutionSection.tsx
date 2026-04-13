@@ -1,9 +1,12 @@
+import { useRef } from 'react';
 import { motion } from 'motion/react';
 
 import solutionBgVideo from '../../assets/media/search-solution-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
 
 export function SolutionSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const features = [
     { title: 'Curated Feed', description: 'A personalized stream of high-signal content, filtered for depth and relevance.' },
     { title: 'Writer Tools', description: 'Powerful, minimal tools designed to help you focus on what matters: your ideas.' },
@@ -21,7 +24,21 @@ export function SolutionSection() {
       </motion.div>
 
       <motion.div {...fadeUp(0.3)} className="w-full aspect-[3/1] mb-20 overflow-hidden rounded-2xl">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onEnded={() => {
+            const video = videoRef.current;
+            if (!video) return;
+            video.currentTime = 0;
+            void video.play();
+          }}
+          className="w-full h-full object-cover"
+        >
           <source src={solutionBgVideo} type="video/mp4" />
         </video>
       </motion.div>

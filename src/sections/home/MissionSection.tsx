@@ -44,10 +44,26 @@ function WordReveal({ text, className, start, end }: { text: string; className?:
 }
 
 export function MissionSection() {
+  const missionVideoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <section className="pt-0 pb-32 md:pb-44 px-8 md:px-28 flex flex-col items-center">
       <motion.div {...fadeUp(0.2)} className="w-[800px] h-[800px] max-w-full aspect-square mb-24 overflow-hidden rounded-full">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+        <video
+          ref={missionVideoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onEnded={() => {
+            const video = missionVideoRef.current;
+            if (!video) return;
+            video.currentTime = 0;
+            void video.play();
+          }}
+          className="w-full h-full object-cover"
+        >
           <source src={missionBgVideo} type="video/mp4" />
         </video>
       </motion.div>

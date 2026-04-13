@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 
 import { Input } from '@/components/ui/input';
@@ -10,9 +11,85 @@ import { fadeUp } from '../../shared/animations/fadeUp';
 const avatarImages = [avatar1, avatar2, avatar3];
 
 export function Hero() {
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const tryPlay = async () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.playsInline = true;
+      try {
+        await video.play();
+      } catch {
+        // Ignore autoplay rejections; the video will retry on canplay.
+      }
+    };
+
+    const recoverPlayback = () => {
+      if (document.hidden) return;
+      const v = heroVideoRef.current;
+      if (!v) return;
+
+      const atEnd = Number.isFinite(v.duration) && v.duration > 0 && v.currentTime >= v.duration - 0.05;
+      if (v.ended || atEnd) {
+        v.currentTime = 0;
+      }
+
+      if (v.paused) {
+        void v.play();
+      }
+    };
+
+    void tryPlay();
+
+    const watchdog = window.setInterval(recoverPlayback, 1200);
+    video.addEventListener('pause', recoverPlayback);
+    video.addEventListener('stalled', recoverPlayback);
+    video.addEventListener('waiting', recoverPlayback);
+    video.addEventListener('ended', recoverPlayback);
+    document.addEventListener('visibilitychange', recoverPlayback);
+
+    return () => {
+      window.clearInterval(watchdog);
+      video.removeEventListener('pause', recoverPlayback);
+      video.removeEventListener('stalled', recoverPlayback);
+      video.removeEventListener('waiting', recoverPlayback);
+      video.removeEventListener('ended', recoverPlayback);
+      document.removeEventListener('visibilitychange', recoverPlayback);
+    };
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center text-center px-6">
-      <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
+      <video
+        ref={heroVideoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onCanPlay={() => {
+          const video = heroVideoRef.current;
+          if (!video) return;
+          void video.play();
+        }}
+        onLoadedData={() => {
+          const video = heroVideoRef.current;
+          if (!video) return;
+          void video.play();
+        }}
+        onEnded={() => {
+          const video = heroVideoRef.current;
+          if (!video) return;
+          video.currentTime = 0;
+          void video.play();
+        }}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
         <source src={heroBgVideo} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/20 z-[1]" />

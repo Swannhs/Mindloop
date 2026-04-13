@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion } from 'motion/react';
 
 import platformChatgpt from '../../assets/media/platform-chatgpt.jpg';
@@ -7,6 +8,8 @@ import searchBgVideo from '../../assets/media/search-solution-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
 
 export function SearchSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const platforms = [
     {
       name: 'ChatGPT',
@@ -28,7 +31,21 @@ export function SearchSection() {
   return (
     <section className="relative pt-52 md:pt-64 pb-20 px-8 md:px-28 text-center overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-10 grayscale">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          onEnded={() => {
+            const video = videoRef.current;
+            if (!video) return;
+            video.currentTime = 0;
+            void video.play();
+          }}
+          className="absolute inset-0 w-full h-full object-cover opacity-10 grayscale"
+        >
           <source src={searchBgVideo} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />

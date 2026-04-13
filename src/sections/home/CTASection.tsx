@@ -11,7 +11,21 @@ export function CTASection() {
 
   return (
     <section className="relative py-32 md:py-44 px-8 md:px-28 border-t border-border/30 overflow-hidden text-center flex flex-col items-center justify-center min-h-[60vh]">
-      <video ref={videoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-40">
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onEnded={() => {
+          const video = videoRef.current;
+          if (!video) return;
+          video.currentTime = 0;
+          void video.play();
+        }}
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
+      >
         <source src={ctaBgVideo} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-background/45 z-[1]" />
