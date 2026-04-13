@@ -56,13 +56,13 @@ export function MissionSection() {
 
       <div className="max-w-5xl w-full space-y-20">
         <WordReveal
-          text="We're building a space where curiosity meets clarity — where readers find depth, writers find reach, and every newsletter becomes a conversation worth having."
+          text="We're building a space where curiosity meets clarity where readers find depth, writers find reach, and every newsletter becomes a conversation worth having."
           className="text-2xl md:text-4xl lg:text-5xl font-medium tracking-[-1px] leading-tight"
           start={0.1}
           end={0.5}
         />
         <WordReveal
-          text="A platform where content, community, and insight flow together — with less noise, less friction, and more meaning for everyone involved."
+          text="A platform where content, community, and insight flow together - with less noise, less friction, and more meaning for everyone involved."
           className="text-xl md:text-2xl lg:text-3xl font-medium"
           start={0.4}
           end={0.8}
