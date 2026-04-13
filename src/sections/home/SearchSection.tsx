@@ -1,22 +1,26 @@
 import { motion } from 'motion/react';
 
+import platformChatgpt from '../../assets/media/platform-chatgpt.jpg';
+import platformGoogleAi from '../../assets/media/platform-googleai.jpg';
+import platformPerplexity from '../../assets/media/platform-perplexity.jpg';
+import searchBgVideo from '../../assets/media/search-solution-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
 
 export function SearchSection() {
   const platforms = [
     {
       name: 'ChatGPT',
-      icon: 'https://picsum.photos/seed/chatgpt/200/200',
+      icon: platformChatgpt,
       description: 'Conversational intelligence that reshaped how we interact with information.',
     },
     {
       name: 'Perplexity',
-      icon: 'https://picsum.photos/seed/perplexity/200/200',
+      icon: platformPerplexity,
       description: 'The search engine that answers, providing direct clarity in a world of links.',
     },
     {
       name: 'Google AI',
-      icon: 'https://picsum.photos/seed/googleai/200/200',
+      icon: platformGoogleAi,
       description: 'Integrating depth and scale to redefine the boundaries of human knowledge.',
     },
   ];
@@ -25,10 +29,7 @@ export function SearchSection() {
     <section className="relative pt-52 md:pt-64 pb-20 px-8 md:px-28 text-center overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
         <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-10 grayscale">
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_125119_8e5ae31c-0021-4396-bc08-f7aebeb877a2.mp4"
-            type="video/mp4"
-          />
+          <source src={searchBgVideo} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
         <div
@@ -54,7 +55,7 @@ export function SearchSection() {
           {platforms.map((p, i) => (
             <motion.div key={p.name} {...fadeUp(0.6 + i * 0.1)} className="flex flex-col items-center">
               <div className="w-[200px] h-[200px] mb-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500">
-                <img src={p.icon} alt={p.name} className="w-full h-full object-contain rounded-2xl" referrerPolicy="no-referrer" />
+                <img src={p.icon} alt={p.name} className="w-full h-full object-contain rounded-2xl" />
               </div>
               <h3 className="font-semibold text-base mb-2">{p.name}</h3>
               <p className="text-muted-foreground text-sm max-w-[240px]">{p.description}</p>

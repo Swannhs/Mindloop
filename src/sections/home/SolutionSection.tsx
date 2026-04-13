@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 
+import solutionBgVideo from '../../assets/media/search-solution-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
 
 export function SolutionSection() {
@@ -21,10 +22,7 @@ export function SolutionSection() {
 
       <motion.div {...fadeUp(0.3)} className="w-full aspect-[3/1] mb-20 overflow-hidden rounded-2xl">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_125119_8e5ae31c-0021-4396-bc08-f7aebeb877a2.mp4"
-            type="video/mp4"
-          />
+          <source src={solutionBgVideo} type="video/mp4" />
         </video>
       </motion.div>
 

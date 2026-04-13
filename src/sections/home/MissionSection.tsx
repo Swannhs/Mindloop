@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 
+import missionBgVideo from '../../assets/media/mission-bg.mp4';
 import { cn } from '@/lib/utils';
 import { fadeUp } from '../../shared/animations/fadeUp';
 
@@ -47,10 +48,7 @@ export function MissionSection() {
     <section className="pt-0 pb-32 md:pb-44 px-8 md:px-28 flex flex-col items-center">
       <motion.div {...fadeUp(0.2)} className="w-[800px] h-[800px] max-w-full aspect-square mb-24 overflow-hidden rounded-full">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4"
-            type="video/mp4"
-          />
+          <source src={missionBgVideo} type="video/mp4" />
         </video>
       </motion.div>
 

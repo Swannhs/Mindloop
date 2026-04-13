@@ -1,16 +1,19 @@
 import { motion } from 'motion/react';
 
 import { Input } from '@/components/ui/input';
+import avatar1 from '../../assets/media/avatar-1.jpg';
+import avatar2 from '../../assets/media/avatar-2.jpg';
+import avatar3 from '../../assets/media/avatar-3.jpg';
+import heroBgVideo from '../../assets/media/hero-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
+
+const avatarImages = [avatar1, avatar2, avatar3];
 
 export function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden flex flex-col items-center justify-center text-center px-6">
       <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0">
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4"
-          type="video/mp4"
-        />
+        <source src={heroBgVideo} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/20 z-[1]" />
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-background to-transparent z-[2]" />
@@ -18,13 +21,12 @@ export function Hero() {
       <div className="relative z-10 pt-28 md:pt-32 max-w-4xl mx-auto">
         <motion.div {...fadeUp(0.2)} className="flex items-center justify-center gap-3 mb-8">
           <div className="flex -space-x-2">
-            {[1, 2, 3].map((i) => (
+            {avatarImages.map((avatar, i) => (
               <img
                 key={i}
-                src={`https://picsum.photos/seed/avatar${i}/100/100`}
+                src={avatar}
                 alt="Avatar"
                 className="w-8 h-8 rounded-full border-2 border-background object-cover"
-                referrerPolicy="no-referrer"
               />
             ))}
           </div>

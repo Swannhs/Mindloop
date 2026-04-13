@@ -1,31 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'motion/react';
-import Hls from 'hls.js';
 
 import { Button } from '@/components/ui/button';
+import ctaBgVideo from '../../assets/media/cta-bg.mp4';
 import { fadeUp } from '../../shared/animations/fadeUp';
 import { Logo } from '../../shared/ui/Logo';
 
 export function CTASection() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsUrl = 'https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8';
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(hlsUrl);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = hlsUrl;
-    }
-  }, []);
 
   return (
     <section className="relative py-32 md:py-44 px-8 md:px-28 border-t border-border/30 overflow-hidden text-center flex flex-col items-center justify-center min-h-[60vh]">
-      <video ref={videoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-40" />
+      <video ref={videoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0 opacity-40">
+        <source src={ctaBgVideo} type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-background/45 z-[1]" />
 
       <div className="relative z-10 flex flex-col items-center">
